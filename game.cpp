@@ -1,17 +1,36 @@
+/*
+暂定规则：
+    游戏机制: 
+        当你的五个文件全部被删除，视为你被淘汰
+        你只能看到你自己的目录结构以及有你文件的目录结构
+    游戏流程: 
+        准备阶段：每人拿四张牌，并将目录设为根目录，将每人的五个文件放至根目录。
+        出牌阶段：从1号玩家开始轮流出牌，每回合摸3张牌
+            cd: 跳转到挡墙文件目录下任意文件夹内
+            mkdir: 在当前目录创建一个文件夹
+            mv: 将任意一个文件移动到当前目录
+            rm: 删除当前目录下的一个文件
+            echo: 重新新建你被删除的文件
+            sudo: 使用 sudo rm 删除的文件不能被 echo 回来
+ */
 #include <bits/stdc++.h>
 #include <windows.h>
 using namespace std;
 
 int player_sum=4;
 
+void init()//init directory
+{
+    
+}
+
 void dispense()//dispense card
 {
-    srand(time(0));
     for(int i=1;i<=4;i++)
     {
-        ifstream infile("data/_card.txt");
+        ifstream infile("_data/_card.txt");
         ostringstream player_file_name;
-        player_file_name<< "data/player/player" << i << "_card.txt";
+        player_file_name<<"_data/player/player"<<i<<"_card.txt";
         ofstream outfile(player_file_name.str());
         for(int i=1;i<=4;i++)
         {
@@ -27,12 +46,21 @@ void dispense()//dispense card
                 if(l<=id&&id<=r)
                     outfile<<name<<endl;
             }
-            infile.clear();
             infile.seekg(0,std::ios::beg);
         }
         infile.close();
         outfile.close();
     }
+}
+
+void dire_print()//print directory
+{
+
+}
+
+void cd()
+{
+    
 }
 
 void play()//main
@@ -48,7 +76,7 @@ void play()//main
             MessageBoxW(NULL,temp_massage.str().c_str(),temp_title.str().c_str(),MB_OK);
             cout<<i<<" 号玩家的手牌: "<<endl;
             ostringstream player_file_name;
-            player_file_name<<"data/player/player"<<i<<"_card.txt";
+            player_file_name<<"_data/player/player"<<i<<"_card.txt";
             ifstream infile(player_file_name.str());
             string temp;
             string card[10];
@@ -60,10 +88,16 @@ void play()//main
             }
             while(1)
             {
+                system("cls");
+                dire_print();
                 cout<<"您要打出（输入 0 结束回合）: ";
                 cin>>temp;
                 if(temp=="0")
                     break;
+                if(temp=="cd")
+                {
+                    cd();
+                }
             }
         }
     }
@@ -71,22 +105,10 @@ void play()//main
 
 int main()
 {
+    system("chcp 65001");
+    srand(time(0));
+    init();
     dispense();
     play();
     return 0;
 }
-/*
-规则：
-    游戏机制: 
-        当你的五个文件全部被删除，视为你被淘汰
-        你只能看到你自己的目录结构以及有你文件的目录结构
-    游戏流程: 
-        准备阶段：每人拿四张牌，并将目录设为根目录，将每人的五个文件放至根目录。
-        出牌阶段：从1号玩家开始轮流出牌
-            cd: 跳转到挡墙文件目录下任意文件夹内
-            mkdir: 在当前目录创建一个文件夹
-            mv: 将任意一个文件移动到当前目录
-            rm: 删除当前目录下的一个文件
-            echo: 重新新建你被删除的文件
-            sudo: 使用 sudo rm 删除的文件不能被 echo 回来
- */

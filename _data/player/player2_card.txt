@@ -1,0 +1,4 @@
+mv
+mkdir
+echo
+mkdir
