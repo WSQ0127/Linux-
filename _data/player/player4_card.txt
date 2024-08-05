@@ -1,4 +1,0 @@
-mv
-mkdir
-cd
-cd

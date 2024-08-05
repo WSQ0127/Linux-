@@ -19,13 +19,25 @@
  */
 #include <bits/stdc++.h>
 #include <windows.h>
+#include <_data/MiniLinux.h>
 using namespace std;
 
 int player_sum=4;
+vector<string> player_card[5];
+int player_dire[5];
+int dire_tot;
+directory dire;
 
 void init()//init directory
 {
-    
+    for(int i=1;i<=4;i++)
+    {
+        dire.mkdir(1);
+        for(int j=1;j<=5;j++)
+        {
+            dire.echo(i);
+        }
+    }
 }
 
 void dispense()//dispense card
@@ -34,8 +46,6 @@ void dispense()//dispense card
     {
         ifstream infile("_data/_card.txt");
         ostringstream player_file_name;
-        player_file_name<<"_data/player/player"<<i<<"_card.txt";
-        ofstream outfile(player_file_name.str());
         for(int i=1;i<=4;i++)
         {
             string temp;
@@ -48,23 +58,17 @@ void dispense()//dispense card
                 string name;
                 infile>>l>>r>>name;
                 if(l<=id&&id<=r)
-                    outfile<<name<<endl;
+                    player_card[i].push_back(temp);
             }
             infile.seekg(0,std::ios::beg);
         }
         infile.close();
-        outfile.close();
     }
 }
 
 void dire_print()//print directory
 {
 
-}
-
-void cd()
-{
-    
 }
 
 void play()//main
@@ -79,28 +83,20 @@ void play()//main
             temp_title<<i<<L" 号玩家出牌阶段";
             MessageBoxW(NULL,temp_massage.str().c_str(),temp_title.str().c_str(),MB_OK);
             cout<<i<<" 号玩家的手牌: "<<endl;
-            ostringstream player_file_name;
-            player_file_name<<"_data/player/player"<<i<<"_card.txt";
-            ifstream infile(player_file_name.str());
-            string temp;
-            string card[10];
-            int tot=0;
-            while(getline(infile,temp))
-            {
-                card[++tot]=temp;
-                cout<<"\t"<<temp<<endl;
-            }
+            for(int j=0;j<player_card[i].size();j++)
+                cout<<"\t"<<player_card[i][j];
             while(1)
             {
                 system("cls");
                 dire_print();
                 cout<<"您要打出（输入 0 结束回合）: ";
+                string temp;
                 cin>>temp;
                 if(temp=="0")
                     break;
                 if(temp=="cd")
                 {
-                    cd();
+
                 }
             }
         }
