@@ -14,7 +14,7 @@
                 mv: 将任意一个文件移动到当前目录
                 rm: 删除当前目录下的一个文件
                 echo: 重新新建你被删除的文件
-                sudo: 使用 sudo rm 删除的文件不能被 echo 回来
+                sudo: 使用 sudo rm 删除的文件不能被 echo 回来，使用 sudo 可抵消非 sudo 
             弃牌阶段: 手中只保留 (玩家个数+1) 张牌
  */
 #include <bits/stdc++.h>
@@ -35,7 +35,7 @@ void init()//init directory
         dire.mkdir(1);
         for(int j=1;j<=5;j++)
         {
-            dire.echo(i);
+            dire.echo(i,i);
         }
     }
 }
@@ -81,7 +81,7 @@ void play()//main
                 cout<<i<<" 号玩家的手牌: "<<endl;
                 for(int j=0;j<player_card[i].size();j++)
                     cout<<"  "<<player_card[i][j]<<endl;
-                dire.print();
+                dire.print(i);
                 cout<<"您要打出（输入 0 结束回合）: ";
                 string temp;
                 cin>>temp;

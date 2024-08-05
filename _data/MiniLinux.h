@@ -5,20 +5,23 @@ using namespace std;
 
 class directory
 {
+    struct node
+    {
+        int id,dep;
+    };
 public:
     bool type[100];//player's id, 0-folder
     vector<int> dire[100];
-    vector<int> file[100];
     int dire_tot=0;
     void mkdir(int idx)
     {
         dire[idx].push_back(++dire_tot);
         type[dire_tot]=0;
     }
-    void echo(int idx)
+    void echo(int idx,int player_id)
     {
         dire[idx].push_back(++dire_tot);
-        type[dire_tot]=0;
+        type[dire_tot]=player_id;
     }
     void rm(int idx,bool sudo)
     {
@@ -28,33 +31,52 @@ public:
     {
         
     }
-    void print()
+    void print(int player_id)
     {
         cout<<"当前目录: "<<endl;
         cout<<"Home"<<endl;
         for(int i=1;i<=4;i++)
         {
-            cout<<"  ├player"<<i<<endl;
-            queue<int> q,dep;
-            while(!q.empty())
+            if(i==4)
             {
-                int t=q.front();
-                int space=dep.front();
-                q.pop();dep.pop();
-                for(int j=1;j<=space;j++)
-                    cout<<"  |";
-                if(type[t])
+                cout<<"  └player"<<i<<endl;
+            }
+            else
+            {
+                cout<<"  ├player"<<i<<endl;
+            }
+            if(i==player_id)
+            {
+                queue<node> q;
+                for(int j=0;j<dire[player_id].size();j++)
                 {
-                    cout<<"file"<<type[t]<<endl;
+                    q.push({dire[player_id][j],1});
                 }
-                else
+                while(!q.empty())
                 {
-                    cout<<"folder"<<t<<endl;
-                    for(int j=0;j<dire[t].size();j++)
+                    node t=q.front();
+                    int now=t.id,dep=t.dep;
+                    q.pop();
+                    for(int j=0;j<dep;j++)
+                        cout<<"  |";
+                    cout<<"  ├";
+                    if(type[now])
                     {
-                        q.push(dire[t][j]);
+                        cout<<"file"<<type[now]<<endl;
+                    }
+                    else
+                    {
+                        cout<<"folder"<<now<<endl;
+                        for(int j=0;j<dire[now].size();j++)
+                        {
+                            q.push({dire[now][j],dep+1});
+                        }
                     }
                 }
+            }
+            else
+            {
+                cout<<"  |  └***"<<endl;
             }
         }
     }
