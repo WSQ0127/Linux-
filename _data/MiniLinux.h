@@ -30,6 +30,7 @@ public:
     }
     void print()
     {
+        cout<<"当前目录: "<<endl;
         cout<<"Home"<<endl;
         for(int i=1;i<=4;i++)
         {
@@ -41,7 +42,7 @@ public:
                 int space=dep.front();
                 q.pop();dep.pop();
                 for(int j=1;j<=space;j++)
-                    cout<<"  ";
+                    cout<<"  |";
                 if(type[t])
                 {
                     cout<<"file"<<type[t]<<endl;

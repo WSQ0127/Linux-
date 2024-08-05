@@ -19,7 +19,7 @@
  */
 #include <bits/stdc++.h>
 #include <windows.h>
-#include <_data/MiniLinux.h>
+#include "_data/MiniLinux.h"
 using namespace std;
 
 int player_sum=4;
@@ -47,7 +47,6 @@ void dispense()//dispense card
         ifstream infile("_data/_card.txt");
         for(int i=1;i<=4;i++)
         {
-            string temp;
             int n,m;
             infile>>n>>m;
             int id=rand()%(m+1)+1;
@@ -57,7 +56,7 @@ void dispense()//dispense card
                 string name;
                 infile>>l>>r>>name;
                 if(l<=id&&id<=r)
-                    player_card[i].push_back(temp);
+                    player_card[i].push_back(name);
             }
             infile.seekg(0,std::ios::beg);
         }
@@ -71,17 +70,17 @@ void play()//main
     {
         for(int i=1;i<=4;i++)
         {
-            wostringstream temp_massage;
-            temp_massage<<L"请除 "<<i<<L" 号以外玩家背身";
-            wostringstream temp_title;
-            temp_title<<i<<L" 号玩家出牌阶段";
-            MessageBoxW(NULL,temp_massage.str().c_str(),temp_title.str().c_str(),MB_OK);
-            cout<<i<<" 号玩家的手牌: "<<endl;
-            for(int j=0;j<player_card[i].size();j++)
-                cout<<"\t"<<player_card[i][j];
             while(1)
             {
                 system("cls");
+                wostringstream temp_massage;
+                temp_massage<<L"请除 "<<i<<L" 号以外玩家背身";
+                wostringstream temp_title;
+                temp_title<<i<<L" 号玩家出牌阶段";
+                MessageBoxW(NULL,temp_massage.str().c_str(),temp_title.str().c_str(),MB_OK);
+                cout<<i<<" 号玩家的手牌: "<<endl;
+                for(int j=0;j<player_card[i].size();j++)
+                    cout<<"  "<<player_card[i][j]<<endl;
                 dire.print();
                 cout<<"您要打出（输入 0 结束回合）: ";
                 string temp;
