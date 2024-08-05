@@ -67,7 +67,24 @@ void dispense()//dispense card
 
 void dire_print()//print directory
 {
+    cout<<"Home"<<endl;
+    for(int i=1;i<=4;i++)
+    {
+        cout<<"  ├player"<<i<<endl;
+        queue<int> q,dep;
+        while(!q.empty())
+        {
+            int t=q.front();
+            int space=dep.front();
+            q.pop();dep.pop();
+            for(int j=1;j<=space;j++)
+                cout<<"  ";
+            if(dire.type[t])
+            {
 
+            }
+        }
+    }
 }
 
 void play()//main
@@ -95,7 +112,7 @@ void play()//main
                     break;
                 if(temp=="cd")
                 {
-
+                    
                 }
             }
         }
