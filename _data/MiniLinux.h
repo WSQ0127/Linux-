@@ -1,3 +1,5 @@
+#ifndef MiniLinux_H
+#define MiniLinux_H
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -56,3 +58,4 @@ public:
         }
     }
 };
+#endif
