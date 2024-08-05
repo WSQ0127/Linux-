@@ -9,10 +9,42 @@ class directory
     {
         int id,dep;
     };
+    void print_dfs(int idx,int dep)
+    {
+        for(int i=0;i<dire[idx].size();i++)
+        {
+            int now=dire[idx][i];
+            for(int j=1;j<=dep;j++)
+                cout<<"|  ";
+            if(!type[now])
+            {
+                if(i==dire[idx].size()-1)
+                {
+                    cout<<"└──folder"<<now<<endl;
+                }
+                else
+                {
+                    cout<<"├──folder"<<now<<endl;
+                }
+                print_dfs(now,dep+1);
+            }
+            else
+            {
+                if(i==dire[idx].size()-1)
+                {
+                    cout<<"└──file"<<now<<endl;
+                }
+                else
+                {
+                    cout<<"├──file"<<now<<endl;
+                }
+            }
+        }
+    }
 public:
     bool type[100];//player's id, 0-folder
     vector<int> dire[100];
-    int dire_tot=0;
+    int dire_tot=1;
     void mkdir(int idx)
     {
         dire[idx].push_back(++dire_tot);
@@ -39,44 +71,26 @@ public:
         {
             if(i==4)
             {
-                cout<<"  └player"<<i<<endl;
+                cout<<"└──player"<<i<<endl;
             }
             else
             {
-                cout<<"  ├player"<<i<<endl;
+                cout<<"├──player"<<i<<endl;
             }
             if(i==player_id)
             {
-                queue<node> q;
-                for(int j=0;j<dire[player_id].size();j++)
-                {
-                    q.push({dire[player_id][j],1});
-                }
-                while(!q.empty())
-                {
-                    node t=q.front();
-                    int now=t.id,dep=t.dep;
-                    q.pop();
-                    for(int j=0;j<dep;j++)
-                        cout<<"  |";
-                    cout<<"  ├";
-                    if(type[now])
-                    {
-                        cout<<"file"<<type[now]<<endl;
-                    }
-                    else
-                    {
-                        cout<<"folder"<<now<<endl;
-                        for(int j=0;j<dire[now].size();j++)
-                        {
-                            q.push({dire[now][j],dep+1});
-                        }
-                    }
-                }
+                print_dfs(i,1);
             }
             else
             {
-                cout<<"  |  └***"<<endl;
+                if(i==4)
+                {
+                    cout<<"   └──***"<<endl;
+                }
+                else
+                {
+                    cout<<"|  └──***"<<endl;
+                }
             }
         }
     }

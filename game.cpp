@@ -35,7 +35,7 @@ void init()//init directory
         dire.mkdir(1);
         for(int j=1;j<=5;j++)
         {
-            dire.echo(i,i);
+            dire.echo(i+1,i);
         }
     }
 }
