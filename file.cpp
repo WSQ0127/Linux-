@@ -65,31 +65,9 @@ void dispense()//dispense card
     }
 }
 
-void dire_print()//print directory
-{
-    cout<<"Home"<<endl;
-    for(int i=1;i<=4;i++)
-    {
-        cout<<"  ├player"<<i<<endl;
-        queue<int> q,dep;
-        while(!q.empty())
-        {
-            int t=q.front();
-            int space=dep.front();
-            q.pop();dep.pop();
-            for(int j=1;j<=space;j++)
-                cout<<"  ";
-            if(dire.type[t])
-            {
-
-            }
-        }
-    }
-}
-
 void play()//main
 {
-    while(player_sum)//if ore than one player survives
+    while(player_sum)//if more than one player survives
     {
         for(int i=1;i<=4;i++)
         {
@@ -104,7 +82,7 @@ void play()//main
             while(1)
             {
                 system("cls");
-                dire_print();
+                dire.print();
                 cout<<"您要打出（输入 0 结束回合）: ";
                 string temp;
                 cin>>temp;
