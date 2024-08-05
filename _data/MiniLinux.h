@@ -66,7 +66,7 @@ public:
     void print(int player_id)
     {
         cout<<"当前目录: "<<endl;
-        cout<<"Home"<<endl;
+        cout<<"home"<<endl;
         for(int i=1;i<=4;i++)
         {
             if(i==4)
@@ -77,21 +77,7 @@ public:
             {
                 cout<<"├──player"<<i<<endl;
             }
-            if(i==player_id)
-            {
-                print_dfs(i,1);
-            }
-            else
-            {
-                if(i==4)
-                {
-                    cout<<"   └──***"<<endl;
-                }
-                else
-                {
-                    cout<<"|  └──***"<<endl;
-                }
-            }
+            print_dfs(i,1);
         }
     }
 };
