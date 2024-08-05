@@ -45,7 +45,6 @@ void dispense()//dispense card
     for(int i=1;i<=4;i++)
     {
         ifstream infile("_data/_card.txt");
-        ostringstream player_file_name;
         for(int i=1;i<=4;i++)
         {
             string temp;
