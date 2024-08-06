@@ -45,10 +45,11 @@ public:
     bool type[100];//player's id, 0-folder
     vector<int> dire[100];
     int dire_tot=1;
-    void mkdir(int idx)
+    int mkdir(int idx)
     {
         dire[idx].push_back(++dire_tot);
         type[dire_tot]=0;
+        return dire_tot;
     }
     void echo(int idx,int player_id)
     {

@@ -25,6 +25,8 @@ using namespace std;
 int player_sum=4;
 vector<string> player_card[5];
 int player_dire[5];
+int index[5];
+vector<int> path[5];
 int dire_tot;
 directory dire;
 
@@ -32,10 +34,12 @@ void init()//init directory
 {
     for(int i=1;i<=4;i++)
     {
-        dire.mkdir(1);
+        int id=dire.mkdir(1);
+        index[i]=id;
+        path[i].push_back(id);
         for(int j=1;j<=5;j++)
         {
-            dire.echo(i+1,i);
+            dire.echo(id,i);
         }
     }
 }
@@ -78,10 +82,16 @@ void play()//main
                 wostringstream temp_title;
                 temp_title<<i<<L" 号玩家出牌阶段";
                 MessageBoxW(NULL,temp_massage.str().c_str(),temp_title.str().c_str(),MB_OK);
+                dire.print(i);
+                cout<<i<<" 号玩家当前路径: "<<endl;
+                cout<<"Home";
+                cout<<"/player"<<path[i][0]-1;
+                for(int j=1;j<path[i].size();j++)
+                    cout<<"/fordle"<<path[i][j];
+                cout<<endl;
                 cout<<i<<" 号玩家的手牌: "<<endl;
                 for(int j=0;j<player_card[i].size();j++)
                     cout<<"  "<<player_card[i][j]<<endl;
-                dire.print(i);
                 cout<<"您要打出（输入 0 结束回合）: ";
                 string temp;
                 cin>>temp;
