@@ -89,11 +89,11 @@ void cd(int player_id)
         {
             if(i==dire.dire[player_index[player_id]].size()-1)
             {
-                cout<<"└──"<<dire.name[dire.dire[player_index[player_id]][i]]<<endl;
+                cout<<"└──"<<serial_num[i+1]<<dire.name[dire.dire[player_index[player_id]][i]]<<endl;
             }
             else
             {
-                cout<<"├──"<<dire.name[dire.dire[player_index[player_id]][i]]<<endl;
+                cout<<"├──"<<serial_num[i+1]<<dire.name[dire.dire[player_index[player_id]][i]]<<endl;
             }
         }
         cout<<"请选择路径编号（如要后退输入..）：";
