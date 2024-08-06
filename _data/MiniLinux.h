@@ -41,10 +41,10 @@ class directory
             }
         }
     }
+    int dire_tot=1;
 public:
     bool type[100];//player's id, 0-folder
     vector<int> dire[100];
-    int dire_tot=1;
     int mkdir(int idx)
     {
         dire[idx].push_back(++dire_tot);
@@ -78,7 +78,7 @@ public:
             {
                 cout<<"├──player"<<i<<endl;
             }
-            print_dfs(i,1);
+            print_dfs(i+1,1);
         }
     }
 };

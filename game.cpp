@@ -35,9 +35,12 @@ void init()//init directory
         int id=dire.mkdir(1);//players' fordle
         player_index[i]=id;
         player_path[i].push_back(id);
+    }
+    for(int i=2;i<=5;i++)
+    {
         for(int j=1;j<=5;j++)
         {
-            dire.echo(id,i);//players' file
+            dire.echo(i,i);//players' file
         }
     }
 }
