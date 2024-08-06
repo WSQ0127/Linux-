@@ -22,24 +22,22 @@
 #include "_data/MiniLinux.h"
 using namespace std;
 
-int player_sum=4;
-vector<string> player_card[5];
-int player_dire[5];
-int index[5];
-vector<int> path[5];
-int dire_tot;
-directory dire;
+int player_sum=4;//player sum
+vector<string> player_card[5];//players' card
+int player_index[5];//players' index
+vector<int> player_path[5];//players' path
+directory dire;// directory
 
 void init()//init directory
 {
     for(int i=1;i<=4;i++)
     {
-        int id=dire.mkdir(1);
-        index[i]=id;
-        path[i].push_back(id);
+        int id=dire.mkdir(1);//players' fordle
+        player_index[i]=id;
+        player_path[i].push_back(id);
         for(int j=1;j<=5;j++)
         {
-            dire.echo(id,i);
+            dire.echo(id,i);//players' file
         }
     }
 }
@@ -76,22 +74,26 @@ void play()//main
         {
             while(1)
             {
-                system("cls");
+                system("cls");//clean the screen
+                //pop up window
                 wostringstream temp_massage;
                 temp_massage<<L"请除 "<<i<<L" 号以外玩家背身";
                 wostringstream temp_title;
                 temp_title<<i<<L" 号玩家出牌阶段";
                 MessageBoxW(NULL,temp_massage.str().c_str(),temp_title.str().c_str(),MB_OK);
+                //print player's path
                 dire.print(i);
                 cout<<i<<" 号玩家当前路径: "<<endl;
                 cout<<"Home";
-                cout<<"/player"<<path[i][0]-1;
-                for(int j=1;j<path[i].size();j++)
-                    cout<<"/fordle"<<path[i][j];
+                cout<<"/player"<<player_path[i][0]-1;
+                for(int j=1;j<player_path[i].size();j++)
+                    cout<<"/fordle"<<player_path[i][j];
                 cout<<endl;
+                //print player's card
                 cout<<i<<" 号玩家的手牌: "<<endl;
                 for(int j=0;j<player_card[i].size();j++)
                     cout<<"  "<<player_card[i][j]<<endl;
+                //play a hand
                 cout<<"您要打出（输入 0 结束回合）: ";
                 string temp;
                 cin>>temp;
