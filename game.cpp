@@ -52,9 +52,6 @@ void init()//init directory
             dire.echo(i+1,i,temp);//players' file
         }
     }
-    for(int i=1;i<=4;i++)
-    {
-    }
 }
 
 void dispense()//dispense card
