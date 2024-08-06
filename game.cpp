@@ -22,26 +22,38 @@
 #include "_data/MiniLinux.h"
 using namespace std;
 
+const string serial_num[10]={"0","①","②","③","④","⑤","⑥","⑦","⑧","⑨"};
+
 int player_sum=4;//player sum
-vector<string> player_card[5];//players' card
+list<string> player_card[5];//players' card
 int player_index[5];//players' index
-vector<int> player_path[5];//players' path
+deque<int> player_path[5];//players' path
 directory dire;// directory
+int fordle_tot=0;
 
 void init()//init directory
 {
+    dire.name[1]="Home";
     for(int i=1;i<=4;i++)
     {
-        int id=dire.mkdir(1);//players' fordle
+        string temp;temp="player";temp+='0'+i;
+        cout<<temp<<endl;
+        int id=dire.mkdir(1,temp);//players' fordle
         player_index[i]=id;
+        player_path[i].push_back(1);
         player_path[i].push_back(id);
     }
-    for(int i=2;i<=5;i++)
+    for(int i=1;i<=4;i++)
     {
         for(int j=1;j<=5;j++)
         {
-            dire.echo(i,i);//players' file
+            string temp;
+            temp+="player";temp+=(char)('0'+i);temp+="_file";temp+=('0'+j);
+            dire.echo(i+1,i,temp);//players' file
         }
+    }
+    for(int i=1;i<=4;i++)
+    {
     }
 }
 
@@ -69,57 +81,76 @@ void dispense()//dispense card
     }
 }
 
+void cd(int player_id)
+{
+    auto t=find(player_card[player_id].begin(),player_card[player_id].end(),"cd");
+    if(t!=player_card[player_id].end())
+    {
+        player_card[player_id].erase(t);
+        cout<<dire.name[player_index[player_id]]<<endl;
+        for(int i=0;i<dire.dire[player_index[player_id]].size();i++)
+        {
+            if(i==dire.dire[player_index[player_id]].size()-1)
+            {
+                cout<<"└──"<<dire.name[dire.dire[player_index[player_id]][i]]<<endl;
+            }
+            else
+            {
+                cout<<"├──"<<dire.name[dire.dire[player_index[player_id]][i]]<<endl;
+            }
+        }
+        cout<<"请选择路径编号（如要后退输入..）：";
+        string temp;
+        cin>>temp;
+        if(temp=="")
+        {
+            
+        }
+    }
+    else
+    {
+        wostringstream temp_massage;
+        temp_massage<<L"您没有 cd 这张牌哦";
+        wostringstream temp_title;
+        temp_title<<player_id<<L" 号玩家出牌阶段";
+        MessageBoxW(NULL,temp_massage.str().c_str(),temp_title.str().c_str(),MB_OK);
+    }
+}
+
 void play()//main
 {
     while(player_sum)//if more than one player survives
     {
         for(int i=1;i<=4;i++)
         {
+            system("cls");//clean the screen
+            //pop up window
+            wostringstream temp_massage;
+            temp_massage<<L"请除 "<<i<<L" 号以外玩家背身";
+            wostringstream temp_title;
+            temp_title<<i<<L" 号玩家出牌阶段";
+            MessageBoxW(NULL,temp_massage.str().c_str(),temp_title.str().c_str(),MB_OK);
+            dire.print();
             while(1)
             {
-                system("cls");//clean the screen
-                //pop up window
-                wostringstream temp_massage;
-                temp_massage<<L"请除 "<<i<<L" 号以外玩家背身";
-                wostringstream temp_title;
-                temp_title<<i<<L" 号玩家出牌阶段";
-                MessageBoxW(NULL,temp_massage.str().c_str(),temp_title.str().c_str(),MB_OK);
                 //print player's path
-                dire.print(i);
                 cout<<i<<" 号玩家当前路径: "<<endl;
                 cout<<"Home";
-                cout<<"/player"<<player_path[i][0]-1;
                 for(int j=1;j<player_path[i].size();j++)
-                    cout<<"/fordle"<<player_path[i][j];
+                    cout<<"/"<<dire.name[player_path[i][j]];
                 cout<<endl;
                 //print player's card
                 cout<<i<<" 号玩家的手牌: "<<endl;
-                for(int j=0;j<player_card[i].size();j++)
-                    cout<<"  "<<player_card[i][j]<<endl;
+                for(auto j=player_card[i].begin();j!=player_card[i].end();j++)
+                    cout<<"  "<<*j<<endl;
                 //play a hand
                 cout<<"您要打出（输入 0 结束回合）: ";
-                string temp;
-                cin>>temp;
-                if(temp=="0")
+                wstring temp;
+                wcin>>temp;
+                if(temp==L"0")
                     break;
-                if(temp=="cd")
-                {
-                    cout<<"folder"<<player_index[i]<<endl;
-                    for(int j=0;j<dire.dire[player_index[i]].size();i++)
-                    {
-                        if(j==dire.dire[player_index[i]].size()-1)
-                        {
-                            cout<<"└──fordle"<<dire.dire[player_index[i]][j]<<endl;
-                        }
-                        else
-                        {
-                            cout<<"├──fordle"<<dire.dire[player_index[i]][j]<<endl;
-                        }
-                    }
-                    cout<<"请选择路径（如要后退输入..）：";
-                    string temp;
-                    cin>>temp;
-                }
+                if(temp==L"cd")
+                    cd(i);
             }
         }
     }

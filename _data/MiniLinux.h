@@ -20,11 +20,11 @@ class directory
             {
                 if(i==dire[idx].size()-1)
                 {
-                    cout<<"└──folder"<<now<<endl;
+                    cout<<"└──"<<name[now]<<endl;
                 }
                 else
                 {
-                    cout<<"├──folder"<<now<<endl;
+                    cout<<"├──"<<name[now]<<endl;
                 }
                 print_dfs(now,dep+1);
             }
@@ -32,11 +32,11 @@ class directory
             {
                 if(i==dire[idx].size()-1)
                 {
-                    cout<<"└──file"<<now<<endl;
+                    cout<<"└──"<<name[now]<<endl;
                 }
                 else
                 {
-                    cout<<"├──file"<<now<<endl;
+                    cout<<"├──"<<name[now]<<endl;
                 }
             }
         }
@@ -45,16 +45,19 @@ class directory
 public:
     bool type[100];//player's id, 0-folder
     vector<int> dire[100];
-    int mkdir(int idx)
+    string name[100];
+    int mkdir(int idx,string nam)
     {
         dire[idx].push_back(++dire_tot);
         type[dire_tot]=0;
+        name[dire_tot]=nam;
         return dire_tot;
     }
-    void echo(int idx,int player_id)
+    void echo(int idx,int player_id,string nam)
     {
         dire[idx].push_back(++dire_tot);
         type[dire_tot]=player_id;
+        name[dire_tot]=nam;
     }
     void rm(int idx,bool sudo)
     {
@@ -64,22 +67,10 @@ public:
     {
         
     }
-    void print(int player_id)
+    void print()
     {
         cout<<"当前目录: "<<endl;
-        cout<<"home"<<endl;
-        for(int i=1;i<=4;i++)
-        {
-            if(i==4)
-            {
-                cout<<"└──player"<<i<<endl;
-            }
-            else
-            {
-                cout<<"├──player"<<i<<endl;
-            }
-            print_dfs(i+1,1);
-        }
+        print_dfs(1,0);
     }
 };
 #endif
