@@ -1,12 +1,12 @@
 本项目由 [wsq127](https://blog.wsq127.top)/[zMr](https://blog.517group.cn) 开发qwq。
 
-游戏名还没有确定，目前有《MiniLinux:prologue》和《MicroUnix:Index》两个版本
+游戏名暂定为《MiniLinux:prologue》
 
-如果大佬有意见可以去B站私信我们或者直接提PR.
+logo:![logo](https://github.com/user-attachments/assets/88bc267e-4e4b-4121-b82c-5a342afedda6)
 
-提 PR 的话可以不用在意码风，最后会用 VScode 格式化的。
+如果有大佬们看见并且有意见可以去B站私信我们或者直接PR.
 
-当然如果说想改一下整体框架也是可以提 PR 的。
+PR 的话可以不用在意码风，最后会用 VScode 格式化的。
 
 暂定规则：
     游戏机制: 
