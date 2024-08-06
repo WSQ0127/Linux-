@@ -104,7 +104,21 @@ void play()//main
                     break;
                 if(temp=="cd")
                 {
-                    
+                    cout<<"folder"<<player_index[i]<<endl;
+                    for(int j=0;j<dire.dire[player_index[i]].size();i++)
+                    {
+                        if(j==dire.dire[player_index[i]].size()-1)
+                        {
+                            cout<<"└──fordle"<<dire.dire[player_index[i]][j]<<endl;
+                        }
+                        else
+                        {
+                            cout<<"├──fordle"<<dire.dire[player_index[i]][j]<<endl;
+                        }
+                    }
+                    cout<<"请选择路径（如要后退输入..）：";
+                    string temp;
+                    cin>>temp;
                 }
             }
         }
