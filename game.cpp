@@ -116,6 +116,7 @@ void mkdir(int player_id)
     auto t=find(player_card[player_id].begin(),player_card[player_id].end(),"mkdir");
     if(t!=player_card[player_id].end())
     {
+        player_card[player_id].erase(t);
         string temp="foldler";temp+='0'+(++folder_tot);
         dire.mkdir(player_index[player_id],temp);
     }
