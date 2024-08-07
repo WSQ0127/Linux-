@@ -10,7 +10,7 @@ list<string> player_card[5];//players' card
 int player_index[5];//players' index
 deque<int> player_path[5];//players' path
 directory dire;// directory
-int fordle_tot=0;
+int folder_tot=0;
 
 void init()//init directory
 {
@@ -95,7 +95,6 @@ void cd(int player_id)
                 wostringstream temp_title;
                 temp_title<<player_id<<L" 号玩家出牌阶段";
                 MessageBoxW(NULL,temp_massage.str().c_str(),temp_title.str().c_str(),MB_OK);
-                break;
             }
             player_path[player_id].push_back(dire.dire[player_index[player_id]][folder_id-1]);
             player_index[player_id]=dire.dire[player_index[player_id]][folder_id-1];
@@ -106,6 +105,24 @@ void cd(int player_id)
     {
         wostringstream temp_massage;
         temp_massage<<L"您没有 cd 这张牌哦";
+        wostringstream temp_title;
+        temp_title<<player_id<<L" 号玩家出牌阶段";
+        MessageBoxW(NULL,temp_massage.str().c_str(),temp_title.str().c_str(),MB_OK);
+    }
+}
+
+void mkdir(int player_id)
+{
+    auto t=find(player_card[player_id].begin(),player_card[player_id].end(),"mkdir");
+    if(t!=player_card[player_id].end())
+    {
+        string temp="foldler";temp+='0'+(++folder_tot);
+        dire.mkdir(player_index[player_id],temp);
+    }
+    else
+    {
+        wostringstream temp_massage;
+        temp_massage<<L"您没有 mkdir 这张牌哦";
         wostringstream temp_title;
         temp_title<<player_id<<L" 号玩家出牌阶段";
         MessageBoxW(NULL,temp_massage.str().c_str(),temp_title.str().c_str(),MB_OK);
@@ -125,10 +142,10 @@ void play()//main
             wostringstream temp_title;
             temp_title<<i<<L" 号玩家出牌阶段";
             MessageBoxW(NULL,temp_massage.str().c_str(),temp_title.str().c_str(),MB_OK);
-            dire.print();
             while(1)
             {
                 //print player's path
+                dire.print();
                 cout<<i<<" 号玩家当前路径: "<<endl;
                 cout<<"Home";
                 for(int j=1;j<player_path[i].size();j++)
@@ -146,12 +163,9 @@ void play()//main
                 if(temp==L"0")
                     break;
                 if(temp==L"cd")
-                    cd(i);
-                
-                cout<<i<<" 号玩家当前路径: "<<endl;
-                cout<<"Home";
-                for(int j=1;j<player_path[i].size();j++)
-                    cout<<"/"<<dire.name[player_path[i][j]];
+                    cd(i); 
+                if(temp==L"mkdir")
+                    mkdir(i);    
             }
         }
     }
