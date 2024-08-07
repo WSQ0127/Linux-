@@ -96,12 +96,29 @@ void cd(int player_id)
                 cout<<"├──"<<serial_num[i+1]<<dire.name[dire.dire[player_index[player_id]][i]]<<endl;
             }
         }
-        cout<<"请选择路径编号（如要后退输入..）：";
-        string temp;
-        cin>>temp;
-        if(temp=="")
+        while(1)
         {
-            
+            cout<<"请选择路径编号（如要后退输入..）：";
+            string temp;
+            cin>>temp;
+            if(temp=="..")
+            {
+                player_path[player_id].pop_back();
+                break;
+            }
+            int folder_id=temp[0]-'0';
+            if(folder_id>dire.dire[player_index[player_id]].size())
+            {
+                wostringstream temp_massage;
+                temp_massage<<L"没有这个路径哦";
+                wostringstream temp_title;
+                temp_title<<player_id<<L" 号玩家出牌阶段";
+                MessageBoxW(NULL,temp_massage.str().c_str(),temp_title.str().c_str(),MB_OK);
+                break;
+            }
+            player_path[player_id].push_back(dire.dire[player_index[player_id]][folder_id-1]);
+            player_index[player_id]=dire.dire[player_index[player_id]][folder_id-1];
+            break;
         }
     }
     else
@@ -140,6 +157,7 @@ void play()//main
                 cout<<i<<" 号玩家的手牌: "<<endl;
                 for(auto j=player_card[i].begin();j!=player_card[i].end();j++)
                     cout<<"  "<<*j<<endl;
+                    
                 //play a hand
                 cout<<"您要打出（输入 0 结束回合）: ";
                 wstring temp;
@@ -148,6 +166,11 @@ void play()//main
                     break;
                 if(temp==L"cd")
                     cd(i);
+                
+                cout<<i<<" 号玩家当前路径: "<<endl;
+                cout<<"Home";
+                for(int j=1;j<player_path[i].size();j++)
+                    cout<<"/"<<dire.name[player_path[i][j]];
             }
         }
     }
