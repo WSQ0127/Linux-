@@ -2,7 +2,7 @@
 
 游戏名暂定为《MiniLinux:prologue》
 
-logo:![logo](/_image/logo.png)
+logo:![logo](/img/logo.png)
 
 如果有大佬们看见并且有意见可以去B站私信我们或者直接PR.
 
