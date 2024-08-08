@@ -1,0 +1,7 @@
+6
+5 sudo
+20 cd
+5 echo
+15 mv
+15 mkdir
+10 rm
