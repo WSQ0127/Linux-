@@ -58,12 +58,13 @@ public:
             dire.echo(id+1,id,temp);
         }
     }
-    void load_cards(ifstream& infile,int num)
+    void load_cards(int num)
     {
-        int n,m;
-        infile>>n>>m;
+        ifstream infile("_data/_card.txt");
         for(int i=1;i<=num;i++)
         {
+            int n,m;
+            infile>>n>>m;
             int temp=rand()%(m+1)+1;
             for(int j=1;j<=n;j++)
             {
@@ -72,10 +73,14 @@ public:
                 infile>>l>>r>>name;
                 if(l<=temp&&temp<=r)
                 {
+                    cout<<j<<endl;
                     cards.push_back(name);
+                    break;
                 }
             }
+            infile.seekg(0,ios::beg);
         }
+        infile.close();
     }
     void display(directory dire)
     {

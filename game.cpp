@@ -19,13 +19,8 @@ void init()//init directory
 
 void dispense()//dispense card
 {
-    ifstream infile("_data/_card.txt");
     for(int i=1;i<=4;i++)
-    {
-        players[i].load_cards(infile,5);
-        infile.seekg(0,std::ios::beg);
-    }
-    infile.close();
+        players[i].load_cards(5);
 }
 
 void play()//main
