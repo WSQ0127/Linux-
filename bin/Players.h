@@ -73,7 +73,6 @@ public:
                 infile>>l>>r>>name;
                 if(l<=temp&&temp<=r)
                 {
-                    cout<<j<<endl;
                     cards.push_back(name);
                     break;
                 }
