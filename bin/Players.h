@@ -9,12 +9,34 @@ const string serial_num[10]={"0","①","②","③","④","⑤","⑥","⑦","⑧"
 
 class Player
 {
-public:
+private:
     int id;
     int current_index;
     int folder_tot=0;
     list<string> cards;
     deque<int> path;
+    void player_init_directory(directory dire)
+    {
+        string temp="player";
+        temp+='0'+id;
+        cout<<temp<<endl;
+        current_index=dire.mkdir(1,temp);
+        path.push_back(1);
+        path.push_back(current_index);
+    }
+    void player_init_files(directory dire)
+    {
+        for(int j=1;j<=5;j++)
+        {
+            string temp;
+            temp+="player";
+            temp+=to_string(id);
+            temp+="_file";
+            temp+=('0'+j);
+            dire.echo(id+1,id,temp);
+        }
+    }
+public:
     Player(){}
     Player(int _id,directory dire)
     {
@@ -35,27 +57,6 @@ public:
             {
                 cout<<"├──"<<serial_num[i+1]<<dire.name[dire.dire[current_index][i]]<<endl;
             }
-        }
-    }
-    void player_init_directory(directory dire)
-    {
-        string temp="player";
-        temp+='0'+id;
-        cout<<temp<<endl;
-        current_index=dire.mkdir(1,temp);
-        path.push_back(1);
-        path.push_back(current_index);
-    }
-    void player_init_files(directory dire)
-    {
-        for(int j=1;j<=5;j++)
-        {
-            string temp;
-            temp+="player";
-            temp+=to_string(id);
-            temp+="_file";
-            temp+=('0'+j);
-            dire.echo(id+1,id,temp);
         }
     }
     void load_cards(int num)
